@@ -110,8 +110,8 @@ print(classification_report(test_labels, predicted_labels))
 #Now run a neural network
 print "Number of features=",len(adjectives)
 model = Sequential()
-model.add(Dense(10, input_dim=len(adjectives), init='uniform', activation='relu'))
-model.add(Dense(4, init='uniform', activation='relu'))
+model.add(Dense(50, input_dim=len(adjectives), init='uniform', activation='relu'))
+model.add(Dense(8, init='uniform', activation='relu'))
 model.add(Dense(1, init='uniform', activation='sigmoid'))
 # Compile model
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])

@@ -12,7 +12,10 @@ from scipy import stats
 import random
 
 import libpos
-
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import Dense, Dropout, Activation
+from keras.optimizers import SGD
 random.seed(0)
 #numpy.set_printoptions(threshold=numpy.inf)
 train_data=[]
@@ -100,6 +103,26 @@ clf = KNeighborsClassifier(n_neighbors=3)
 clf.fit(X_train, train_labels) 
 print "Making predictions..."
 predicted_labels = clf.predict(X_test)
+cm = confusion_matrix(test_labels, predicted_labels)
+print cm
+print(classification_report(test_labels, predicted_labels))
+
+#Now run a neural network
+print "Number of features=",len(adjectives)
+model = Sequential()
+model.add(Dense(10, input_dim=len(adjectives), init='uniform', activation='relu'))
+model.add(Dense(4, init='uniform', activation='relu'))
+model.add(Dense(1, init='uniform', activation='sigmoid'))
+# Compile model
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+# Fit the model
+model.fit(X_train, train_labels, nb_epoch=15, batch_size=10)
+# evaluate the model
+scores = model.evaluate(X_train, train_labels)
+print("%s: %.2f%%" % (model.metrics_names[1], scores[1]*100))
+print "Running predictions for support"
+predicted_labels = model.predict(X_test)
+predicted_labels = [int(round(x)) for x in predicted_labels]
 cm = confusion_matrix(test_labels, predicted_labels)
 print cm
 print(classification_report(test_labels, predicted_labels))

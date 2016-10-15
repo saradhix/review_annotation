@@ -61,7 +61,7 @@ for (review, label) in raw_train_data:
 test_data=[]
 test_labels=[]
 for (review, label) in raw_test_data:
-  test_data.append(review)
+  test_data.append(review_to_word(review))
   test_labels.append(int(label))
 
 #print test_data[0], test_labels[0]

@@ -11,7 +11,8 @@ from sklearn.metrics import classification_report, confusion_matrix
 from scipy import stats
 import random
 
-import libpos
+#import libpos
+from libspacy import get_adjectives
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dense, Dropout, Activation
@@ -71,7 +72,7 @@ print "Extracting features"
 adjectives=set()
 
 for review in train_data:
-  adjs = libpos.get_adjectives(review)
+  adjs = get_adjectives(review)
   adjectives.update(set(adjs)) #get_adjectives returns a set
 
 #print sorted(adjectives)
@@ -126,3 +127,5 @@ predicted_labels = [int(round(x)) for x in predicted_labels]
 cm = confusion_matrix(test_labels, predicted_labels)
 print cm
 print(classification_report(test_labels, predicted_labels))
+
+#print adjectives

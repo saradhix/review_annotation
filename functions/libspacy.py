@@ -4,12 +4,14 @@ import spacy
 
 
 nlp = English()
+#probs = [lex.prob for lex in nlp.vocab]
+#probs.sort()
 def get_adjectives(sentence):
   adjs = set()
   sentence = nlp(sentence.decode('utf-8'))
   for token in sentence:
     if token.pos == spacy.parts_of_speech.ADJ:
-      adjs.add(str(token))
+      adjs.add(token.string)
   return adjs
 '''
 s = "A healthy king lives happily"

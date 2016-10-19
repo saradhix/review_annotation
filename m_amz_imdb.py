@@ -180,20 +180,3 @@ out1 = autoencoder.fit(X_train, X_train,
 X_test_encoded = encoder.predict(X_test)
 print len(X_test_encoded)
 print X_test_encoded.shape
-#---------------------------------
-# Plot the training loss
-#---------------------------------
-'''
-plt.figure()
-for i in out1.history:
-    plt.plot(out1.history[i],label=str(i))
-plt.legend()
-plt.title('Training progression')
-plt.xlabel('Epoch -->')
-plt.ylabel('Error -->')
-'''
-W = autoencoder.layers[1].W.get_value(borrow=True)
-W = np.squeeze(W)
-#W=W.T
-print("W shape : ", W.shape)
-np.savetxt('weights.txt', W, newline="\n",fmt='%8f')
